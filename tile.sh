@@ -42,7 +42,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ## ── Python interpreter inside the uv venv ─────────────────────────────────
 PYTHON="${SCRIPT_DIR}/.venv/bin/python"
 if [[ ! -x "${PYTHON}" ]]; then
-    echo "ERROR: Python interpreter not found at ${PYTHON}" >&2
+    PYTHON="${SCRIPT_DIR}/.venv/Scripts/python.exe"
+fi
+if [[ ! -x "${PYTHON}" ]]; then
+    echo "ERROR: Python interpreter not found." >&2
     echo "       Run 'uv venv' and 'uv pip install -e .' in the project root first." >&2
     exit 1
 fi
