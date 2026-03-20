@@ -1,0 +1,61 @@
+I would like to create a Python application that works with aperiodic tiling, a
+non-repeating pattern that covers the plane (or space) using an aperiodic tile
+without gaps or overlaps, and crucially, it lacks any translational symmetry -
+meaning no shift by a fixed distance in any direction will leave the tiling
+unchanged.
+
+We are in a Python environment directory where I executed uv venv, creating the
+.venv/ directory.  The requirements are defined in requirements.txt, this file.
+The SVG image of the aperiodic tile to use, the Einstein hat aperiodic tile also
+known as Tile(1,1)", is saved as images/one_tile1_1.svg.
+
+These are the requirements:
+
+- A function, fill_canvas(), creates a rectangular image filled with the
+  aperiodic arrangement of the one_tile1_1.svg tile.
+  - These are the inputs of the function:
+    - The width and height in pixels of the rectagular canvas to be filled with
+      aperiodic tiles
+    - The size (pixels) or zoom factor of the tile.  This is the size of the
+      tile that will populate the tiling cell's space.
+    - The size (pixels) or zoom factor of the tile.  This number is greater than
+      the previous number as it defines the cell size which includes the margin
+      around the tile in the cell.
+    - An angle of orientation of the placement of the tiles, or equivalently,
+      the orientation of the rectangular canvas before the tiles are laid out.
+  - The function lays as many tiles as will cover the rectangular canvas, not
+    more. Don't bother with any cropping on the rectangular canvas border. This
+    is because the output of the function is not an actual image but a
+    description of the tiles that make up the tiling of the image. The output is
+    a Python dictionary or "JSON" structure with the following attributes:
+    - the svg description of the tile (./images/one_tile1_1.svg)
+    - the size (or zoom factor) of the tile as used in the tiling. the smaller
+      the size, the larger the gap between the tiles. i.e. it takes into account
+      the gap between tiles.
+    - an list/array of the tiles in the image where each member has:
+      - the relative coordinate of the position of the tile in the rectangular
+        canvas
+      - the orientation (angle) of the placement of the tile
+
+- Another function, assign_tile_heights(), takes the output of the previous
+  function, the dictionary description of the two dimensional canvas of
+  aperiodic tiles.  This function assigns a random height to each of the tiles
+  in the collection, extending the tile to the third dimension in height.  The
+  min and max heights are also provided as parameters to this function.
+  - The tops of each tile extended in height are given a slant defined by a
+    directional vector perpendicular to the extended tile's top surface.
+  - The height and slant vector for each tile are added to the dictionary
+    description of the tiles in the canvas.  This amended dictionary is the
+    return of this function. Whereas the input 2D structure is called a canvas,
+    I'll call this returned structure amended with height in the third dimension
+    a panel.
+
+- An additional function, render_canvas(), takes the output of fill_canvas() and
+  renders the 2D image on the screen.
+
+- Another function, render_panel(), takes the output of assign_tile_heights(), a
+  panel, and renders it as a 3D model on the screen where the user can rotate
+  tge image in 3D for viewing from any angle.
+
+Please generate the code in an appropriate directory structure.
+Separate the functions in their own files.
